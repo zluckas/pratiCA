@@ -1,10 +1,9 @@
-pratiCA 
-Sistema para a disciplina de PSI que visa disponibilizar os horários de CA(Centro de Aprendizagem) do IFRN campus Caicó
+# 🟩 pratiCA  
+Sistema desenvolvido para a disciplina de PSI, com o objetivo de disponibilizar e organizar os horários de CA (Centro de Aprendizagem) do IFRN – Campus Caicó.
 
-
-Componentes:
-Eduardo Vinícius
-José Abílio
-Lucas Fernando
-Maria Luiza
-Weslley Albert
+## 👥 Integrantes
+- Eduardo Vinícius  
+- José Abílio  
+- Lucas Fernando  
+- Maria Luiza  
+- Weslley Albert  
