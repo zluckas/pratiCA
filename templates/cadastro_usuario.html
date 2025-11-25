@@ -1,0 +1,48 @@
+{% extends "base.html" %} 
+
+{%block title%} pratiCA {%endblock%}
+
+{%block conteudo%}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro_usuario.css') }}">
+
+<h2>Cadastre-se</h2>
+<form action="" method="post">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" required placeholder="seu@exemplo.com" value="{{ request.form.email or '' }}">
+
+        <label for="nome">Nome</label>    
+        <input id="nome" name="nome" type="nome">
+
+        <label for="senha">Senha</label>
+        <input  id ="senha" name="senha"type="password">
+
+        <label for="curso">Curso</label>
+        <select name="curso" id="curso" required>
+            <option value="">Selecione seu curso</option>
+            <option value="Informática para Internet">Informática para Internet</option>
+            <option value="Eletrotécnica">Eletrotécnica</option>
+            <option value="Têxtil">Têxtil</option>
+            <option value="Vestuário">Vestuário</option>
+        </select>
+
+
+        <label for="ano">Ano</label>
+        <select name="ano" id="ano" required>
+            <option value="">Selecione seu curso</option>
+            <option value="1_ano">1° ano</option>
+            <option value="2_ano">2° ano</option>
+            <option value="3_ano">3° ano</option>
+            <option value="4_ano">4° ano</option>
+        </select>
+
+        <label for="turno">Turno</label>
+        <select name="turno" id="turno" required>
+            <option value="">Selecione seu turno</option>
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+        </select>
+        <button type="submit">Enviar</button>
+    </form>
+
+{%endblock%}
