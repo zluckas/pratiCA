@@ -8,6 +8,7 @@
 
 body{
     overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .navbar{
@@ -62,3 +63,12 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+
+.conteudo{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+

@@ -25,5 +25,40 @@
 
 
 .container-principal {
-    
+    height: 1200px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    margin-bottom: 120px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    gap: 20px;
+}
+
+.container-principal div {
+    background-color: #F0FFF0;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 400px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+}
+
+.container-principal div > h3{
+    margin-top: 30px;
+    color: #388E3C;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+.container-principal div > p{
+    height: 80%;
+    margin-top: 20px;
 }
