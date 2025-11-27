@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request,redirect, flash, url_for
-from models import engine, Usuario
+from models import engine, Usuarios, Turnos, Anos, Cursos
 from sqlalchemy.orm import Session
 from werkzeug.security import generate_password_hash
 from flask_login import login_required,current_user
@@ -20,7 +20,7 @@ def cadastro_usuario():
 
         # Verifica se o email já existe
         with Session(bind=engine) as session:
-            usuario_existente = session.query(Usuario).filter_by(email=email).first()
+            usuario_existente = session.query(Usuarios).filter_by(email=email).first()
             if usuario_existente:
                 flash("E-mail já cadastrado! Escolha outro.", "error")
                 return redirect(url_for('usuario.cadastro_usuario'))
@@ -29,7 +29,7 @@ def cadastro_usuario():
             senha_hash = generate_password_hash(senha)
 
             # Cria o usuário com todos os campos
-            usuario = Usuario(
+            usuario = Usuarios(
                 nome=nome,
                 email=email,
                 senha=senha_hash,
@@ -44,7 +44,11 @@ def cadastro_usuario():
             flash("Usuário cadastrado com sucesso! Faça login.", "sucesso")
             return redirect(url_for('auth.login'))
 
-    return render_template('cadastro_usuario.html')
+    with Session(bind=engine) as session:
+        cursos = session.query(Cursos).all()
+        anos = session.query(Anos).all()
+        turnos = session.query(Turnos).all()
+    return render_template('cadastro_usuario.html', cursos=cursos, anos=anos, turnos=turnos)
 
 
 @usuarios_bp.route('/dashboard')

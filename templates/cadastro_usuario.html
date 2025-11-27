@@ -18,30 +18,30 @@
         <label for="senha">Senha</label>
         <input  id ="senha" name="senha"type="password">
 
+
         <label for="curso">Curso</label>
         <select name="curso" id="curso" required>
             <option value="">Selecione seu curso</option>
-            <option value="Informática para Internet">Informática para Internet</option>
-            <option value="Eletrotécnica">Eletrotécnica</option>
-            <option value="Têxtil">Têxtil</option>
-            <option value="Vestuário">Vestuário</option>
+            {% for curso in cursos %}
+                <option value="{{curso.id}}">{{curso.nome}}</option>
+            {% endfor %}
         </select>
 
 
         <label for="ano">Ano</label>
         <select name="ano" id="ano" required>
-            <option value="">Selecione seu curso</option>
-            <option value="1_ano">1° ano</option>
-            <option value="2_ano">2° ano</option>
-            <option value="3_ano">3° ano</option>
-            <option value="4_ano">4° ano</option>
+            <option value="">Selecione seu ano</option>
+            {% for ano in anos %}
+                <option value="{{ano.id}}">{{ano.nome}}</option>
+            {% endfor %}
         </select>
 
         <label for="turno">Turno</label>
         <select name="turno" id="turno" required>
             <option value="">Selecione seu turno</option>
-            <option value="Matutino">Matutino</option>
-            <option value="Vespertino">Vespertino</option>
+            {% for turno in turnos %}
+                <option value="{{turno.id}}">{{turno.nome}}</option>
+            {% endfor %}
         </select>
         <button type="submit">Enviar</button>
     </form>
