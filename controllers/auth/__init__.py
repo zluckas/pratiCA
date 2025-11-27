@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for, request, redirect,get_flashed_messages, flash, Blueprint
+from flask import render_template, url_for, request, redirect,get_flashed_messages, flash, Blueprint
 from sqlalchemy.orm import Session
-from models import engine, Usuario
-from flask_login import LoginManager, login_user
+from models import engine, Usuarios
+from flask_login import login_user
 from werkzeug.security import  check_password_hash  
 
 auth_bp = Blueprint('auth',__name__,static_folder="static", template_folder="templates")
@@ -17,7 +17,7 @@ def login():
         senha = request.form['senha']
 
         with Session(bind=engine) as session:
-            usuario = session.query(Usuario).filter_by(email=email).first()
+            usuario = session.query(Usuarios).filter_by(email=email).first()
             if usuario and check_password_hash(usuario.senha, senha):
                 login_user(usuario)
                 return redirect(url_for('usuario.dashboard'))
