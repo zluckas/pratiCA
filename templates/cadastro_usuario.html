@@ -9,8 +9,8 @@
 
 <form action="" method="post">
     <h2>Cadastre-se</h2>
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email" required placeholder="seu@exemplo.com" value="{{ request.form.email or '' }}">
+        <label for="matricula">Matricula</label>
+        <input id="matricula" name="matricula" type="number" value="{{ request.form.matricula or '' }}">
 
         <label for="nome">Nome</label>    
         <input id="nome" name="nome" type="nome">
@@ -30,18 +30,17 @@
 
         <label for="ano">Ano</label>
         <select name="ano" id="ano" required>
-            <option value="">Selecione seu ano</option>
-            {% for ano in anos %}
-                <option value="{{ano.id}}">{{ano.nome}}</option>
-            {% endfor %}
+            <option value="1° ano">1° ano</option>
+            <option value="2° ano">2° ano</option>
+            <option value="3° ano">3° ano</option>
+            <option value="4° ano">4° ano</option>
         </select>
 
+        
         <label for="turno">Turno</label>
         <select name="turno" id="turno" required>
-            <option value="">Selecione seu turno</option>
-            {% for turno in turnos %}
-                <option value="{{turno.id}}">{{turno.nome}}</option>
-            {% endfor %}
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
         </select>
         <button type="submit">Enviar</button>
     </form>

@@ -12,7 +12,7 @@ usuarios_bp = Blueprint('usuario',__name__, static_folder="static", template_fol
 def cadastro_usuario():
     if request.method == 'POST':
         nome = request.form['nome']
-        email = request.form['email']
+        matricula = request.form['matricula']
         senha = request.form['senha']
         curso = request.form['curso']
         ano = request.form['ano']
@@ -20,7 +20,7 @@ def cadastro_usuario():
 
         # Verifica se o email já existe
         with Session(bind=engine) as session:
-            usuario_existente = session.query(Usuarios).filter_by(email=email).first()
+            usuario_existente = session.query(Usuarios).filter_by(matricula).first()
             if usuario_existente:
                 flash("E-mail já cadastrado! Escolha outro.", "error")
                 return redirect(url_for('usuario.cadastro_usuario'))
@@ -31,7 +31,7 @@ def cadastro_usuario():
             # Cria o usuário com todos os campos
             usuario = Usuarios(
                 nome=nome,
-                email=email,
+                matricula=matricula,
                 senha=senha_hash,
                 curso=curso,
                 ano=ano,
@@ -46,9 +46,7 @@ def cadastro_usuario():
 
     with Session(bind=engine) as session:
         cursos = session.query(Cursos).all()
-        anos = session.query(Anos).all()
-        turnos = session.query(Turnos).all()
-    return render_template('cadastro_usuario.html', cursos=cursos, anos=anos, turnos=turnos)
+    return render_template('cadastro_usuario.html', cursos=cursos)
 
 
 @usuarios_bp.route('/dashboard')

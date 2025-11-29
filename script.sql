@@ -7,49 +7,31 @@ CREATE TABLE IF NOT EXISTS cursos(
     nome VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS turnos(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL
-);
 
-CREATE TABLE IF NOT EXISTS anos(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS categorias(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL
+CREATE TABLE IF NOT EXISTS usuario_horario(
+    id_usuario INT NOT NULL,
+    id_horario INT NOT NULL,
+    PRIMARY KEY (id_usuario, id_horario),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_horario) REFERENCES horarios(id_horario)
 );
 
 CREATE TABLE IF NOT EXISTS usuarios(
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nome_usuario VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    matricula INT NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    id_categoria INT NOT NULL,
     id_curso INT NOT NULL,
-    id_turno INT NOT NULL,
-    id_ano INT NOT NULL,
-    FOREIGN KEY (id_categoria) REFERENCES categorias(id),    
-    FOREIGN KEY (id_curso) REFERENCES cursos(id),
-    FOREIGN KEY (id_turno) REFERENCES turnos(id),
-    FOREIGN KEY (id_ano) REFERENCES anos(id)
+     
+    FOREIGN KEY (id_curso) REFERENCES cursos(id)
 );
 
 CREATE TABLE IF NOT EXISTS horarios(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_professor INT NOT NULL,
+    id_horario INT AUTO_INCREMENT PRIMARY KEY,
     dias VARCHAR(100) NOT NULL,
     horario_inicio TIME NOT NULL,
-    horario_termino TIME NOT NULL, 
-    id_curso INT NOT NULL,
-    id_turno INT NOT NULL,
-    id_ano INT NOT NULL,
-    FOREIGN KEY (id_professor) REFERENCES usuarios(id_usuario),    
-    FOREIGN KEY (id_curso) REFERENCES cursos(id),
-    FOREIGN KEY (id_turno) REFERENCES turnos(id),
-    FOREIGN KEY (id_ano) REFERENCES anos(id)        
+    horario_termino TIME NOT NULL,
+    sala VARCHAR(50) NOT NULL    
 );
 
 /*-----> INSERTS <-----*/
@@ -58,17 +40,3 @@ INSERT INTO cursos VALUES
 (DEFAULT, 'Eletrotécnica'),
 (DEFAULT, 'Têxtil'),
 (DEFAULT, 'Vestuário');
-
-INSERT INTO turnos VALUES 
-(DEFAULT, 'Matutino'),
-(DEFAULT, 'Vespertino');
-
-INSERT INTO anos VALUES 
-(DEFAULT, '1° ano'),
-(DEFAULT, '2° ano'),
-(DEFAULT, '3° ano'),
-(DEFAULT, '4° ano');
-
-INSERT INTO categorias VALUES 
-(DEFAULT, 'Aluno'),
-(DEFAULT, 'Professor');

@@ -13,11 +13,11 @@ def index():
 @auth_bp.route('/login', methods = ['POST','GET'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
+        matricula = request.form['matricula']
         senha = request.form['senha']
 
         with Session(bind=engine) as session:
-            usuario = session.query(Usuarios).filter_by(email=email).first()
+            usuario = session.query(Usuarios).filter_by(matricula=matricula).first()
             if usuario and check_password_hash(usuario.senha, senha):
                 login_user(usuario)
                 return redirect(url_for('usuario.dashboard'))
