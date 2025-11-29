@@ -54,5 +54,4 @@ class Cursos(Base):
     usuarios:Mapped[list['Usuarios']] = relationship(back_populates='curso')
 
 
-
 Base.metadata.create_all(bind=engine)
