@@ -15,7 +15,7 @@ class Base(DeclarativeBase):
     pass
 
 usuario_horario = Table(
-    'aluno_horario', 
+    'usuario_horario', 
     Base.metadata,
     Column('id_usuario', ForeignKey('usuarios.id_usuario'), primary_key=True),
     Column('id_horario', ForeignKey('horarios.id_horario'), primary_key=True)
@@ -27,13 +27,14 @@ class Usuarios(Base, UserMixin):
     matricula:Mapped[int] = mapped_column(Integer, unique=True)
     nome:Mapped[str] = mapped_column(String(50))
     senha:Mapped[str] = mapped_column(String(255))
-
-    id_categoria:Mapped[int] = mapped_column(ForeignKey('categorias.id'))
+    ano:Mapped[str] = mapped_column(String(20), nullable=False)
+    turno:Mapped[str] = mapped_column(String(20), nullable=False)
+    categoria:Mapped[str] = mapped_column(String(20), nullable=False)
     id_curso:Mapped[int] = mapped_column(ForeignKey('cursos.id')) 
     
     curso:Mapped['Cursos'] = relationship(back_populates='usuarios')
 
-    horarios:Mapped[list['Horarios']] = relationship(back_populates='usuarios', secondary=usuario_horario)
+    horarios:Mapped[list['Horarios']] = relationship(secondary=usuario_horario, back_populates='usuarios')
 
 
 class Horarios(Base):
@@ -44,7 +45,7 @@ class Horarios(Base):
     horario_termino:Mapped[time] = mapped_column(Time, nullable=False)
     sala:Mapped[str] = mapped_column(String(50), nullable=False)
 
-    usuarios:Mapped[list['Usuarios']] = relationship(back_populates='horarios', secondary=usuario_horario)
+    usuarios:Mapped[list['Usuarios']] = relationship(secondary=usuario_horario, back_populates='horarios')
     
 class Cursos(Base):
     __tablename__ = 'cursos'

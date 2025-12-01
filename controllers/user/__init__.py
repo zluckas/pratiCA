@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request,redirect, flash, url_for
-from models import engine, Usuarios, Turnos, Anos, Cursos
+from models import engine, Usuarios, Cursos
 from sqlalchemy.orm import Session
 from werkzeug.security import generate_password_hash
 from flask_login import login_required,current_user
@@ -11,16 +11,17 @@ usuarios_bp = Blueprint('usuario',__name__, static_folder="static", template_fol
 @usuarios_bp.route('/cadastro', methods = ['POST', 'GET'])
 def cadastro_usuario():
     if request.method == 'POST':
+        matricula = int(request.form['matricula'])
         nome = request.form['nome']
-        matricula = request.form['matricula']
         senha = request.form['senha']
-        curso = request.form['curso']
+        curso = int(request.form['curso'])
         ano = request.form['ano']
         turno = request.form['turno']
+        categoria = request.form['categoria']
 
         # Verifica se o email já existe
         with Session(bind=engine) as session:
-            usuario_existente = session.query(Usuarios).filter_by(matricula).first()
+            usuario_existente = session.query(Usuarios).filter_by(matricula=matricula).first()
             if usuario_existente:
                 flash("E-mail já cadastrado! Escolha outro.", "error")
                 return redirect(url_for('usuario.cadastro_usuario'))
@@ -30,12 +31,13 @@ def cadastro_usuario():
 
             # Cria o usuário com todos os campos
             usuario = Usuarios(
-                nome=nome,
                 matricula=matricula,
+                nome=nome,
                 senha=senha_hash,
-                curso=curso,
                 ano=ano,
-                turno=turno
+                turno=turno,
+                categoria=categoria,
+                id_curso=curso
             )
 
             session.add(usuario)
