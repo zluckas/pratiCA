@@ -1,7 +1,7 @@
 from flask import render_template, url_for, request, redirect,get_flashed_messages, flash, Blueprint
 from sqlalchemy.orm import Session
 from models import engine, Usuarios
-from flask_login import login_user
+from flask_login import login_user, logout_user
 from werkzeug.security import  check_password_hash  
 
 auth_bp = Blueprint('auth',__name__,static_folder="static", template_folder="templates")
@@ -25,3 +25,8 @@ def login():
                 flash("Credenciais inválidas. Tente novamente.", "error")
 
     return render_template('login.html')
+
+auth_bp.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('auth.index'))

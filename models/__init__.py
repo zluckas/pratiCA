@@ -9,7 +9,7 @@ from flask_login import UserMixin
 import pymysql
 pymysql.install_as_MySQLdb()
 
-engine = create_engine('mysql+pymysql://root:24092001@localhost/db_pratica')
+engine = create_engine('mysql+pymysql://root:@localhost/db_pratica')
 
 class Base(DeclarativeBase):
     pass
