@@ -36,6 +36,9 @@ class Usuarios(Base, UserMixin):
 
     horarios:Mapped[list['Horarios']] = relationship(secondary=usuario_horario, back_populates='usuarios')
 
+    def get_id(self):
+        return str(self.id_usuario)
+
 
 class Horarios(Base):
     __tablename__ = 'horarios'
