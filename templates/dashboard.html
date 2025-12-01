@@ -4,6 +4,44 @@
 
 {%block conteudo%}
 
-<h1>HORÁRIOS</h1>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+
+<div class="wrapper">
+    <div class="conteudo">
+        <div class="painel">
+            <div>
+                <h4>Total de horarios</h4>
+            </div>
+            <div>
+                <h4>Ativos Hoje</h4>
+            </div>
+            <div>
+                <h4>Próximo</h4>
+            </div>
+        </div>
+        <!-- se o usuario estiver logado como professor !!!! -->
+        <div class="cadastro-horario">
+            <h3>Cadastrar Horario</h3>
+            <form  method="POST">
+
+                <label for="dia" >Data</label>
+                <input type="date" name="dia" id="dia">
+
+                <label for="horario_inicio">Horario de inicio</label>
+                <input type="datetime" name="horario_inicio" id="horario_inicio">
+
+                <label for="horario_termino">Horario_termino</label>
+                <input type="datetime" name="horario_termino" id="horario_termino">
+
+                <label for="sala">Sala</label>
+                <input type="text" name="sala" id="sala">
+
+                <input type="submit" value="Criar CA">
+            </form>
+        </div>
+        <div class="horarios-cadastrados"></div>
+    </div>
+</div>
 
 {%endblock%}
