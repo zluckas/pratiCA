@@ -13,22 +13,21 @@
 
 .container-inicial  h1 {
     font-size: 3.5em; 
-    margin: 0;
+    margin-top: -30px;
     font-weight: 900; 
     letter-spacing: -1px; 
-    line-height: 1.1; 
+    /* line-height: 1.1;  */
     color: #16a774; 
     position: relative;
     display: inline-block; 
-    padding-bottom: 20px;
 }
 
-
 .container-principal {
-    height: 1200px;
-    width: 80%;
+    height: 1000px;
+    width: 90%;
     display: flex;
     flex-direction: column;
+    margin-top: -80px;
     align-items: center;
     background-color: white;
     margin-bottom: 160px;
@@ -44,14 +43,16 @@
     gap: 50px;
     justify-content: center;
 }
+
+
 .bloco1 {
-    background-color: #F0FFF0;
+    background-color: #16a774;
     height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 400px;
+    width: 480px;
     margin-top: 50px;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
@@ -60,15 +61,16 @@
 
 .bloco1 > h3{
     margin-top: 30px;
-    color: #388E3C;
+    color: #065082;
     font-size: 30px;
     font-weight: bold;
 }
 
-
 .bloco1 > p{
     height: 80%;
     margin-top: 20px;
+    color: white;
+    padding: 20px;
 }
 
 .bloco1:hover {
@@ -79,13 +81,14 @@
 .bloco2 {
     width: 90%;
     height: 450px;
-    background-color: #F0FFF0;
+    background-color: #065082;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 60px;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    margin-top: -100px;
 }
 
 .bloco2:hover {
@@ -94,8 +97,8 @@
 }
 
 .bloco2 h3 {
-    margin-top: 30px;
-    color: #388E3C;
+    margin-top: 100px;
+    color: white;
     font-size: 50px;
     font-weight: bold;
 }
@@ -103,7 +106,7 @@
 .btn {
     display: inline-block;
     background-color: #FFF;
-    color: #4CAF50;
+    color: #C0433E;
     padding: 12px 30px;
     border-radius: 50px;
     text-decoration: none;
@@ -111,3 +114,17 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
+.destaque {
+    color: #065082;
+    font-weight: 900;
+}
+
+.logomarca{
+    width: 100px;
+    height: auto;
+}
+
+.texto{
+    color: white;
+}

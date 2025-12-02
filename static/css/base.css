@@ -72,3 +72,14 @@ body{
     align-items: center;
 }
 
+.logo{
+    width: 200px;
+    height: auto;
+}
+
+.navbar ul li a.logout-teste {
+    color: #C0433E;
+    font-weight: bold;
+
+}
+
