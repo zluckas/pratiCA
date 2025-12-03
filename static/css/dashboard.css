@@ -56,3 +56,13 @@
 .cadastro-horario form > input{
     width: 200px;
 }
+
+.horarios-cadastrados{
+    display: flex;
+    flex-direction: column;
+    background-color:white ;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+    border-radius: 15px;
+    width: 80%;
+    
+}

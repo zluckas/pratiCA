@@ -20,10 +20,11 @@
                 <h4>Próximo</h4>
             </div>
         </div>
+
         <!-- se o usuario estiver logado como professor !!!! -->
         <div class="cadastro-horario">
             <h3>Cadastrar Horario</h3>
-            <form  method="POST">
+            <form  method="POST" action="{{url_for('horario.cadastrar_horario')}}">
 
                 <label for="dia" >Data</label>
                 <input type="date" name="dia" id="dia">
@@ -40,7 +41,10 @@
                 <input type="submit" value="Criar CA">
             </form>
         </div>
-        <div class="horarios-cadastrados"></div>
+
+        <div class="horarios-cadastrados">
+            
+        </div>
     </div>
 </div>
 
