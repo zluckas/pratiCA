@@ -19,17 +19,18 @@ def cadastrar_horario():
             if usuario.categoria != 'professor':
                 flash("Apenas professores podem cadastrar horários.", 'error')
 
-            novo_horario = Horarios(
-                dias=dia,
-                horario_inicio=horario_inicio,
-                horario_termino=horario_termino,
-                sala=sala)
-            session.add(novo_horario)  
-            session.commit()
-            horarios = session.query(Horarios).all()
-            flash("Horário cadastrado com sucesso!", "success")
-
-            return redirect(url_for('horario.listar_horarios'))
+            else:
+                novo_horario = Horarios(
+                    dias=dia,
+                    horario_inicio=horario_inicio,
+                    horario_termino=horario_termino,
+                    sala=sala,
+                    id_professor = current_user.id_usuario)
+                session.add(novo_horario)  
+                session.commit()
+                flash("Horário cadastrado com sucesso!", "success")
+    
+                return redirect(url_for('horario.listar_horarios'))
     return render_template("cadastro_horario.html")
 
 @horarios_bp.route('/listar_horarios')

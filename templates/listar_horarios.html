@@ -11,11 +11,15 @@
     
     <table>
         <tr>
-            <th></th>
+            <th>Dia</th>
+            <th>Inicio</th>
+            <th>Término</th>
         </tr>
         {% for horario in horarios %}
         <tr>
-            <td>{{ horario.dia_semana }}: {{ horario.hora_inicio }} - {{ horario.hora_fim }}</td>
+            <td>{{ horario.dias }}</td>
+            <td>{{ horario.horario_inicio }}</td>
+            <td>{{ horario.horario_termino }}</td>
         </tr>
         {% else %}
         <tr>
