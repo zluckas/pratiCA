@@ -21,34 +21,26 @@
             </div>
         </div>
 
-        <!-- se o usuario estiver logado como professor !!!! -->
-        <div class="cadastro-horario">
-            <h3>Cadastrar Horario</h3>
-            <form  method="POST" action="{{url_for('horario.cadastrar_horario')}}">
-
-                <label for="dia" >Data</label>
-                <input type="date" name="dia" id="dia">
-
-                <label for="horario_inicio">Horario de inicio</label>
-                <input type="datetime" name="horario_inicio" id="horario_inicio">
-
-                <label for="horario_termino">Horario_termino</label>
-                <input type="datetime" name="horario_termino" id="horario_termino">
-
-                <label for="sala">Sala</label>
-                <input type="text" name="sala" id="sala">
-
-                <input type="submit" value="Criar CA">
-            </form>
-        </div>
-
-        <div class="horarios-cadastrados">
-            <h1>Horarios Cadastrados</h1>
+       
+        <!-- caixa que guarda as divs que vão redirecionar -->
+        <div class="rotas">
+            <!-- parte que somente professores conseguem fazer -->
+            <div>
+                <h3>Cadastrados</h3>
+            </div>
+            <div>
+                <h3>Cadastrar CA</h3>
+            </div>
+            <!-- parte que somente alunos podem fazer -->
+            <div>
+                <h3>CAs disponiveis</h3>
+            </div>
+            <div>
+                <h3>CAs que participarei</h3>
+            </div>
         </div>
         
-        <div class="horarios-disponiveis">
-
-        </div>
+        
 
         
 
