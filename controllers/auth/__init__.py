@@ -12,7 +12,7 @@ def index():
 
 
 @auth_bp.route('/login', methods = ['POST','GET'])
-@login_required
+
 def login():
     if request.method == 'POST':
         matricula = request.form['matricula']

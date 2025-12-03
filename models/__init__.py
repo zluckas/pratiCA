@@ -21,6 +21,8 @@ usuario_horario = Table(
     Column('id_horario', ForeignKey('horarios.id_horario'), primary_key=True)
 )
 
+
+
 class Usuarios(Base, UserMixin):
     __tablename__ = 'usuarios'
     id_usuario:Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -43,11 +45,13 @@ class Usuarios(Base, UserMixin):
 class Horarios(Base):
     __tablename__ = 'horarios'
     id_horario:Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    id_professor:Mapped[int] = mapped_column(ForeignKey('usuarios.id_usuario'), nullable=False)
     dias:Mapped[str] = mapped_column(String(50), nullable=False) 
     horario_inicio:Mapped[time] = mapped_column(Time, nullable=False)
     horario_termino:Mapped[time] = mapped_column(Time, nullable=False)
     sala:Mapped[str] = mapped_column(String(50), nullable=False)
 
+    
     usuarios:Mapped[list['Usuarios']] = relationship(secondary=usuario_horario, back_populates='horarios')
     
 class Cursos(Base):

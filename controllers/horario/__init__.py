@@ -6,7 +6,7 @@ from flask_login import current_user
 horarios_bp = Blueprint('horario',__name__, template_folder = 'templates', static_folder = 'static')
 
 
-@horarios_bp.route('/cadastrar_horario')
+@horarios_bp.route('/cadastrar_horario', methods = ['POST','GET'])
 def cadastrar_horario():
     if request.method == 'POST':
         dia = request.form['dia']
@@ -20,7 +20,7 @@ def cadastrar_horario():
                 flash("Apenas professores podem cadastrar horários.", 'error')
 
             novo_horario = Horarios(
-                dia=dia,
+                dias=dia,
                 horario_inicio=horario_inicio,
                 horario_termino=horario_termino,
                 sala=sala)
@@ -30,7 +30,7 @@ def cadastrar_horario():
             flash("Horário cadastrado com sucesso!", "success")
 
             return redirect(url_for('horario.listar_horarios'))
-    return render_template("dashboard.html")
+    return render_template("cadastro_horario.html")
 
 @horarios_bp.route('/listar_horarios')
 def listar_horarios():
