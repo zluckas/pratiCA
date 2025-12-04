@@ -30,20 +30,32 @@
             <div>
                 <h3>Cadastrados</h3>
                 <p>Aqui você pode ver os horarios que você cadastrou anteriormente</p>
+                <a href="#" class="btn btn-primary">
+                    Cadastrar horário
+                </a>
             </div>
             <div>
                 <h3>Cadastrar CA</h3>
                 <p>Nesse link o professor pode cadastrar seu horario de CA</p>
+                <a href="{{ url_for('horario.cadastrar_horario') }}" class="btn btn-primary">
+                    Cadastrar CA
+                </a>
             </div>
             <!-- parte que somente alunos podem fazer -->
             <div>
                 <h3>CAs disponiveis</h3>
                 <p>Nesse link o aluno tem acesso aos horarios que estão disponiveis para ele se inscrever
                 </p>
+                <a href="{{ url_for('horario.listar_horarios') }}" class="btn btn-primary">
+                    CAs disponíveis
+                </a>
             </div>
             <div>
                 <h3>CAs que participarei</h3>
                 <p>Nesse link o aluno tem acesso aos horarios que ele se inscreveu para atividade de CA</p>
+                <a href="#" class="btn btn-primary">
+                    CAs futuros
+                </a>
             </div>
         </div>
         
