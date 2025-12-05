@@ -23,10 +23,6 @@
                 <td>{{ horario.horario_termino }}</td>
                 <td>{{ horario.sala }}</td>
                 <td>{{ horario.professor.nome}}</td>
-                <td><form class="btn" action="{{ url_for('horario.participar_ca') }}"  method="POST">
-                    <input type="submit" value="participar">
-                </form></td>
-                
             </tr>
             {% else %}
             <tr>

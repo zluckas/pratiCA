@@ -47,6 +47,18 @@ def listar_participar():
     return render_template('horarios_participando.html', horarios = horarios)
 
 
-@horarios_bp.route('/participar_ca' methods = ['POST','GET'])
+@horarios_bp.route('/participar_ca' ,methods = ['POST','GET'])
 def participar_ca():
-    pass
+    horario_id = request.form['horario_id']
+
+
+    with Session(bind= engine) as sessao:
+        horario = sessao.query(Horarios).filter_by(id_horario = horario_id).first()
+        if current_user in horario.usuarios:
+            flash('você ja esta cadastrado nesse CA', 'error')
+            return redirect(url_for('listar_horarios'))
+        
+        horario.usuarios.append(current_user)
+        sessao.commit()
+        sessao.close()
+    
