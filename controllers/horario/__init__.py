@@ -38,3 +38,15 @@ def listar_horarios():
     with Session(bind=engine) as session:
         horarios = (session.query(Horarios).options(joinedload(Horarios.professor)).all())
     return render_template("listar_horarios.html", horarios=horarios)
+
+
+@horarios_bp.route('/listar_participar')
+def listar_participar():
+    with Session(bind=engine) as session:
+        horarios = (session.query(Horarios).options(joinedload(Horarios.usuarios),joinedload(Horarios.professor) ).all())
+    return render_template('horarios_participando.html', horarios = horarios)
+
+
+@horarios_bp.route('/participar_ca' methods = ['POST','GET'])
+def participar_ca():
+    pass
