@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/listar_horarios.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <div class="horarios-cadastrados">
+        <h1>Horários Participando</h1>
+        
+        <table>
+            <tr>
+                <th>Dia</th>
+                <th>Inicio</th>
+                <th>Término</th>
+                <th>Sala</th>
+                <th>Professor Responsável</th>
+            </tr>
+            {% for horario in horarios %}
+            <tr>
+                <td>{{ horario.dias }}</td>
+                <td>{{ horario.horario_inicio }}</td>
+                <td>{{ horario.horario_termino }}</td>
+                <td>{{ horario.sala }}</td>
+                <td>{{ horario.professor.nome}}</td>
+                <td><form class="btn" action="{{ url_for('horario.participar_ca') }}"  method="POST">
+                    <input type="submit" value="participar">
+                </form></td>
+                
+            </tr>
+            {% else %}
+            <tr>
+                <td>Nenhum horário cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+
+
+{% endblock %}
