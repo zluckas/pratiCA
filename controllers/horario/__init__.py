@@ -1,5 +1,6 @@
 from flask import Blueprint, request, flash, render_template, redirect, url_for
 from sqlalchemy.orm import Session, joinedload
+from sqlalchemy import text
 from models import Horarios, Usuarios, engine
 from flask_login import current_user
 
@@ -56,9 +57,25 @@ def participar_ca():
         horario = sessao.query(Horarios).filter_by(id_horario = horario_id).first()
         if current_user in horario.usuarios:
             flash('você ja esta cadastrado nesse CA', 'error')
-            return redirect(url_for('listar_horarios'))
+            return redirect(url_for('horario.listar_horarios'))
         
         horario.usuarios.append(current_user)
         sessao.commit()
         sessao.close()
-    
+    return redirect(url_for('horario.listar_participar'))
+
+
+@horarios_bp.route('/excluir_ca', methods = ['POST','GET'])
+def excluir_ca():
+    if request.method == 'POST':
+        horario_id = request.form['horario_id']
+        print(horario_id)
+        with Session(bind = engine) as sessao:
+            try:
+                sessao.execute(text("DELETE FROM horarios WHERE id_horario = :id"), {"id": horario_id})
+                sessao.commit()
+            except Exception as e:
+                flash(f"Erro de integridade {e}",'error')
+            finally:
+                sessao.close()
+    return redirect(url_for('horario.listar_horarios'))

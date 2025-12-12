@@ -18,16 +18,40 @@
             <th>Professor Responsável</th>
         </tr>
         {% for horario in horarios %}
-        <tr>
-            <td>{{ horario.dias }}</td>
-            <td>{{ horario.horario_inicio }}</td>
-            <td>{{ horario.horario_termino }}</td>
-            <td>{{ horario.sala }}</td>
-            <td>{{ horario.professor.nome}}</td>
-            <td><form class="btn" action="{{ url_for('horario.participar_ca') }}" method="POST">
-                <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
-                <input type="submit" value="Participar">
-            </form></td>
+            {% if  current_user.categoria == "professor" %}
+                {% if current_user.id == horario.professor_id %}
+                <tr>
+                    <td>{{ horario.dias }}</td>
+                    <td>{{ horario.horario_inicio }}</td>
+                    <td>{{ horario.horario_termino }}</td>
+                    <td>{{ horario.sala }}</td>
+                    <td>{{ horario.professor.nome}}</td>
+                    <td>
+                        <form action="{{ url_for('horario.excluir_ca') }}" method="POST">
+                            <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
+                            <input type="submit" value="excluir">
+                        </form>
+                    </td>
+             
+                {% endif %}
+            {% endif %}
+            {% if current_user.categoria == "aluno" %}
+                <tr>
+                    <td>{{ horario.dias }}</td>
+                    <td>{{ horario.horario_inicio }}</td>
+                    <td>{{ horario.horario_termino }}</td>
+                    <td>{{ horario.sala }}</td>
+                    <td>{{ horario.professor.nome}}</td>
+                    <td>
+                        <form class="btn" action="{{ url_for('horario.participar_ca') }}" method="POST">
+                            <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
+                            <input type="submit" value="Participar">
+                        </form>
+                    </td>   
+             {% endif %}
+
+            
+            
             
         </tr>
         {% else %}
