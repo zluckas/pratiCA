@@ -1,45 +1,20 @@
-
-h2{
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    color: #222;
+.title {
+    margin-top: 20px;
 }
-form {
-    width: 400px;
-    margin: 30px auto;                 
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+.botoes{
+    margin-top: 20px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;                      
-}
-label {
-    font-size: 16px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    margin-bottom: 3px;
-    color: #222;
+    justify-content: center;
+    gap: 20px;
+    
 }
 
-input, select {
-    width: 100%;
-    padding: 12px;
-    font-size: 15px;
-    border: 2px solid #d1d1d1;
-    border-radius: 8px;
-    outline: none;
-    transition: .2s;
+.botoes a {
+      text-decoration: none;
 }
 
-button {
-    padding: 10px;
-    font-size: 17px;
-    border: none;
-    border-radius: 8px;
-    background-color: #16a774;  
-    color: white;
-
+.botoes [class^="botao"]    {
+    height: 50px;
+    width: 80px;
+    background-color: aquamarine;
 }
-
