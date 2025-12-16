@@ -12,10 +12,10 @@ CREATE TABLE IF NOT EXISTS usuarios(
     matricula BIGINT NOT NULL UNIQUE,
     nome VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    ano VARCHAR(20) NOT NULL,
-    turno VARCHAR(20) NOT NULL,
+    ano VARCHAR(20),
+    turno VARCHAR(20),
     categoria VARCHAR(20) NOT NULL,
-    id_curso INT NOT NULL,
+    id_curso INT,
      
     FOREIGN KEY (id_curso) REFERENCES cursos(id)
 );
