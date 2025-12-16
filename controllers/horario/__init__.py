@@ -1,7 +1,7 @@
 from flask import Blueprint, request, flash, render_template, redirect, url_for
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import text
-from models import Horarios, Usuarios, engine
+from sqlalchemy import text, select
+from models import Horarios, Usuarios, engine, usuario_horario
 from flask_login import current_user
 from datetime import date
 
@@ -39,7 +39,14 @@ def cadastrar_horario():
 def listar_horarios():
     with Session(bind=engine) as session:
         horarios = (session.query(Horarios).options(joinedload(Horarios.professor)).all())
-    return render_template("listar_horarios.html", horarios=horarios)
+        
+        horarios_inscritos_ids = []
+        if current_user.is_authenticated and current_user.categoria == 'aluno':
+            stmt = select(usuario_horario.c.id_horario).where(usuario_horario.c.id_usuario == current_user.id_usuario)
+            result = session.execute(stmt).scalars().all()
+            horarios_inscritos_ids = list(result)
+            
+    return render_template("listar_horarios.html", horarios=horarios, horarios_inscritos_ids=horarios_inscritos_ids)
 
 
 @horarios_bp.route('/listar_participar')
@@ -69,15 +76,45 @@ def participar_ca():
 
 @horarios_bp.route('/excluir_ca', methods = ['POST','GET'])
 def excluir_ca():
-    if request.method == 'POST':
-        horario_id = request.form['horario_id']
-        print(horario_id)
-        with Session(bind = engine) as sessao:
-            try:
-                sessao.execute(text("DELETE FROM horarios WHERE id_horario = :id"), {"id": horario_id})
-                sessao.commit()
-            except Exception as e:
-                flash(f"Erro de integridade {e}",'error')
-            finally:
-                sessao.close()
+    if request.method != 'POST':
+        return redirect(url_for('horario.listar_horarios'))
+
+    horario_id = request.form.get('horario_id')
+    if not horario_id:
+        flash('ID do horário não informado.', 'error')
+        return redirect(url_for('horario.listar_horarios'))
+
+    with Session(bind=engine) as sessao:
+        try:
+            horario = sessao.query(Horarios).filter_by(id_horario=horario_id).first()
+            if not horario:
+                flash('Horário não encontrado.', 'error')
+                return redirect(url_for('horario.listar_horarios'))
+
+            if current_user.categoria != 'professor' or current_user.id_usuario != horario.id_professor:
+                flash('Você não tem permissão para excluir este horário.', 'error')
+                return redirect(url_for('horario.listar_horarios'))
+
+            sessao.execute(text('DELETE FROM usuario_horario WHERE id_horario = :id'), { 'id': horario_id })
+            sessao.execute(text('DELETE FROM horarios WHERE id_horario = :id'), { 'id': horario_id })
+            sessao.commit()
+            flash('Horário excluído com sucesso.', 'success')
+        except Exception as e:
+            flash(f"Erro de integridade {e}", 'error')
+        finally:
+            sessao.close()
     return redirect(url_for('horario.listar_horarios'))
+
+
+@horarios_bp.route('/participantes/<int:horario_id>')
+def listar_participantes(horario_id):
+    with Session(bind=engine) as session:
+        horario = session.query(Horarios).options(
+            joinedload(Horarios.usuarios).joinedload(Usuarios.curso)
+        ).filter_by(id_horario=horario_id).first()
+        
+        if not horario:
+            flash("Horário não encontrado.", "error")
+            return redirect(url_for('horario.listar_horarios'))
+            
+        return render_template('listar_participantes.html', horario=horario)

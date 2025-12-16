@@ -5,6 +5,7 @@
 {%block conteudo%}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/listar_horarios.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/listar_participantes.css') }}">
 
 <div class="horarios-cadastrados">
     <h1>Horários Cadastrados</h1>
@@ -16,21 +17,23 @@
             <th>Término</th>
             <th>Sala</th>
             <th>Professor Responsável</th>
+            <th>Ações</th>
         </tr>
         {% for horario in horarios %}
             {% if  current_user.categoria == "professor" %}
-                {% if current_user.id == horario.professor_id %}
+                {% if current_user.id_usuario == horario.id_professor %}
                 <tr>
                     <td>{{ horario.dias }}</td>
                     <td>{{ horario.horario_inicio }}</td>
                     <td>{{ horario.horario_termino }}</td>
                     <td>{{ horario.sala }}</td>
                     <td>{{ horario.professor.nome}}</td>
-                    <td>
+                    <td class="acoes-container">
                         <form action="{{ url_for('horario.excluir_ca') }}" method="POST">
                             <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
-                            <input type="submit" value="excluir" class="teste" >
+                            <input type="submit" value="Excluir" class="teste" >
                         </form>
+                        <a href="{{ url_for('horario.listar_participantes', horario_id=horario.id_horario) }}" class="botao-participantes">Participantes</a>
                     </td>
              
                 {% endif %}
@@ -42,11 +45,16 @@
                     <td>{{ horario.horario_termino }}</td>
                     <td>{{ horario.sala }}</td>
                     <td>{{ horario.professor.nome}}</td>
-                    <td>
-                        <form class="btn" action="{{ url_for('horario.participar_ca') }}" method="POST">
-                            <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
-                            <input type="submit" value="Participar">
-                        </form>
+                    <td class="acoes-container">
+                        {% if horarios_inscritos_ids is defined and horario.id_horario in horarios_inscritos_ids %}
+                            <button class="btn" style="background-color: #d5f2dcff" disabled>Inscrito</button>
+                        {% else %}
+                            <form class="btn btn-participar-aluno" action="{{ url_for('horario.participar_ca') }}" method="POST">
+                                <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
+                                <input type="submit" value="Participar">
+                            </form>
+                        {% endif %}
+                        <a href="{{ url_for('horario.listar_participantes', horario_id=horario.id_horario) }}" class="btn-participantes">Participantes</a>
                     </td>   
              {% endif %}
 

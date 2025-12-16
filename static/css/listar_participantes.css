@@ -1,0 +1,26 @@
+h1 {
+    margin-bottom: 20px;
+}
+
+.info {
+    margin-bottom: 20px;
+}
+.botao-participantes {
+    text-decoration: none;
+    padding: 1px 6px;
+    background-color: #f0f0f0;
+    color: black;
+    border: 2px solid #767676;
+    border-radius: 2px;
+    font-size: 13px;
+
+}
+
+.lista-participantes table {
+    margin-top: 20px;
+    width: 700px;
+    margin-top: 15px;
+    background: white;
+    border-radius: 8px;
+}
+

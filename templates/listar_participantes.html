@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+
+{%block title%} Participantes - pratiCA {%endblock%}
+
+{%block conteudo%}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/listar_horarios.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/listar_participantes.css') }}">
+
+<div class="horarios-cadastrados">
+    <h1>Alunos confirmados</h1>
+    
+    <div class="info">
+        <p><strong>Dia:</strong> {{ horario.dias }}</p>
+        <p><strong>Horário:</strong> {{ horario.horario_inicio }} - {{ horario.horario_termino }}</p>
+        <p><strong>Sala:</strong> {{ horario.sala }}</p>
+    </div>
+
+    <h2>Lista de presença ({{ horario.usuarios|length }})</h2>
+
+    <div class="lista-participantes">
+        <table>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome do Aluno</th>
+                <th>Curso</th>
+                <th>Turno</th>
+            </tr>
+            {% for aluno in horario.usuarios %}
+            <tr>
+                <td>{{ aluno.matricula }}</td>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.curso.nome}}</td>
+                <td>{{ aluno.turno }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>asinda não há alunos inscritos para este horário.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="voltar">
+        <a href="{{ url_for('horario.listar_horarios') }}" class="voltatr-botao">Voltar para horários</a>
+    </div>
+</div>
+
+{%endblock%}
