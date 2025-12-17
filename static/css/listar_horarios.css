@@ -29,5 +29,11 @@ tr:nth-child(even) {
 }
 
 form .teste {
-  background-color:  rgb(255, 180, 180);
+ 
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    background-color:  rgb(255, 180, 180);
 }

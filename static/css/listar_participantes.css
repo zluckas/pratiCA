@@ -15,6 +15,9 @@ h1 {
     font-size: 13px;
 
 }
+.lista_presenca h2{
+    margin: 20px;
+}
 
 .lista-participantes table {
     margin-top: 20px;
@@ -23,4 +26,17 @@ h1 {
     background: white;
     border-radius: 8px;
 }
-
+.voltar a {
+    text-decoration: none;
+    color: white;
+}
+.voltar-botao{
+    margin-top: 70px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    width: 200px;
+    background-color:#16a774; 
+}

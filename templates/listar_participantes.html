@@ -16,7 +16,7 @@
         <p><strong>Sala:</strong> {{ horario.sala }}</p>
     </div>
 
-    <h2>Lista de presença ({{ horario.usuarios|length }})</h2>
+   <div class="lista_presenca"> <h2>Lista de presença ({{ horario.usuarios|length }})</h2></div>
 
     <div class="lista-participantes">
         <table>
@@ -35,14 +35,14 @@
             </tr>
             {% else %}
             <tr>
-                <td>asinda não há alunos inscritos para este horário.</td>
+                <td>ainda não há alunos inscritos para este horário.</td>
             </tr>
             {% endfor %}
         </table>
     </div>
 
     <div class="voltar">
-        <a href="{{ url_for('horario.listar_horarios') }}" class="voltatr-botao">Voltar para horários</a>
+        <a href="{{ url_for('horario.listar_horarios') }}" class="voltar-botao">Voltar para horários</a>
     </div>
 </div>
 

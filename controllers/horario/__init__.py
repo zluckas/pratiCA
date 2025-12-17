@@ -1,9 +1,9 @@
 from flask import Blueprint, request, flash, render_template, redirect, url_for
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import text, select
-from models import Horarios, Usuarios, engine, usuario_horario
+from models import Horarios, Usuarios, engine, aluno_horario
 from flask_login import current_user
-from datetime import date
+from datetime import datetime, date
 
 horarios_bp = Blueprint('horario',__name__, template_folder = 'templates', static_folder = 'static')
 
@@ -15,7 +15,10 @@ def cadastrar_horario():
         horario_inicio = request.form['horario_inicio']
         horario_termino = request.form['horario_termino']
         sala = request.form['sala']
-
+        
+        dia = datetime.strptime(dia, "%Y-%m-%d").date()
+        horario_inicio = datetime.strptime(horario_inicio, "%H:%M").time()
+        horario_termino = datetime.strptime(horario_termino, "%H:%M").time()
         with Session(bind=engine) as session:
             usuario = session.query(Usuarios).filter_by(id_usuario=current_user.id_usuario).first()
             if usuario.categoria != 'professor':
@@ -42,7 +45,7 @@ def listar_horarios():
         
         horarios_inscritos_ids = []
         if current_user.is_authenticated and current_user.categoria == 'aluno':
-            stmt = select(usuario_horario.c.id_horario).where(usuario_horario.c.id_usuario == current_user.id_usuario)
+            stmt = select(aluno_horario.c.id_horario).where(aluno_horario.c.id_usuario == current_user.id_usuario)
             result = session.execute(stmt).scalars().all()
             horarios_inscritos_ids = list(result)
             
@@ -52,7 +55,7 @@ def listar_horarios():
 @horarios_bp.route('/listar_participar')
 def listar_participar():
     with Session(bind=engine) as session:
-        horarios = (session.query(Horarios).join(Horarios.usuarios).filter(Usuarios.id_usuario == current_user.id_usuario).options(joinedload(Horarios.professor)).all())
+        horarios = (session.query(Horarios).join(Horarios.alunos).filter(Usuarios.id_usuario == current_user.id_usuario).options(joinedload(Horarios.alunos)).all())
     return render_template('horarios_participando.html', horarios=horarios)
 
 
@@ -110,7 +113,7 @@ def excluir_ca():
 def listar_participantes(horario_id):
     with Session(bind=engine) as session:
         horario = session.query(Horarios).options(
-            joinedload(Horarios.usuarios).joinedload(Usuarios.curso)
+            joinedload(Horarios.alunos).joinedload(Usuarios.id_usuario)
         ).filter_by(id_horario=horario_id).first()
         
         if not horario:

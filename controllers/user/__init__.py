@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request,redirect, flash, url_for
-from models import engine, Usuarios, Cursos, Horarios
+from models import engine, Usuarios, Horarios, Aluno, Professor
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash
@@ -71,14 +71,14 @@ def cadastro_aluno():
             senha_hash = generate_password_hash(senha)
 
             # Cria o usuário com todos os campos
-            usuario = Usuarios(
+            usuario = Aluno(
                 matricula=matricula,
                 nome=nome,
                 senha=senha_hash,
+                categoria='aluno',
                 ano=ano,
                 turno=turno,
-                categoria='aluno',
-                id_curso=curso
+                curso=curso
             )
 
             session.add(usuario)
@@ -87,9 +87,9 @@ def cadastro_aluno():
             flash("Usuário cadastrado com sucesso! Faça login.", "sucesso")
             return redirect(url_for('auth.login'))
 
-    with Session(bind=engine) as session:
-        cursos = session.query(Cursos).all()
-    return render_template('cadastro_aluno.html', cursos=cursos)
+    # with Session(bind=engine) as session:
+    #     cursos = session.query(Cursos).all()
+    return render_template('cadastro_aluno.html')#cursos=cursos)
 
 
 @usuarios_bp.route('/cadastro_professor', methods=['GET', 'POST'])
