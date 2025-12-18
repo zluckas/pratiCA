@@ -30,12 +30,12 @@
             <tr>
                 <td>{{ aluno.matricula }}</td>
                 <td>{{ aluno.nome }}</td>
-                <td>{{ aluno.curso}}</td>
+                <td>{{ aluno.curso.nome }}</td>
                 <td>{{ aluno.turno }}</td>
             </tr>
             {% else %}
             <tr>
-                <td>ainda não há alunos inscritos para este horário.</td>
+                <td colspan="4">ainda não há alunos inscritos para este horário.</td>
             </tr>
             {% endfor %}
         </table>

@@ -33,3 +33,9 @@
     background-color:#16a774; 
 }
 
+.botoes [class^="botao"]:hover{
+    background-color: #13855e;
+    cursor: pointer;
+    scale: 1.05;
+    transition: 0.3s;
+}

@@ -102,8 +102,6 @@ def excluir_ca():
             if current_user.categoria != 'professor' or current_user.id_usuario != horario.id_professor:
                 flash('Você não tem permissão para excluir este horário.', 'error')
                 return redirect(url_for('horario.listar_horarios'))
-
-            sessao.execute(text('DELETE FROM usuario_horario WHERE id_horario = :id'), { 'id': horario_id })
             sessao.execute(text('DELETE FROM horarios WHERE id_horario = :id'), { 'id': horario_id })
             sessao.commit()
             flash('Horário excluído com sucesso.', 'success')

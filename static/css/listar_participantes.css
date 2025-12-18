@@ -7,14 +7,25 @@ h1 {
 }
 .botao-participantes {
     text-decoration: none;
-    padding: 1px 6px;
-    background-color: #f0f0f0;
-    color: black;
-    border: 2px solid #767676;
-    border-radius: 2px;
+    padding: 2px 6px;
+    margin-top: 3px;
+    background-color: #16a774;
+    color: white;
+    border: none;
+    border-radius: 4px;
     font-size: 13px;
-
 }
+
+.botao-participar {
+    padding: 2px 6px;
+    background-color: #16a774;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+
 .lista_presenca h2{
     margin: 20px;
 }

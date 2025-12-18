@@ -22,10 +22,9 @@
         <label for="curso">Curso</label>
         <select name="curso" id="curso" required>
             <option value="">Selecione seu curso</option>
-            <option value="1">Informática</option>
-            <option value="2">Eletrotécnica</option>
-            <option value="3">Textil</option>
-            <option value="4">Vestuario</option>
+            {% for curso in cursos %}
+                <option value="{{ curso.id }}">{{ curso.nome }}</option>
+            {% endfor %}
         </select>
 
 

@@ -3,6 +3,8 @@ from sqlalchemy import create_engine, Column, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Time, ForeignKey, Integer
 from datetime import time
+from sqlalchemy.orm import Session
+
 
 from flask_login import UserMixin
 
@@ -123,4 +125,18 @@ class Cursos(Base):
     nome: Mapped[str] = mapped_column(String(50), nullable=False)
     alunos: Mapped[list['Aluno']] = relationship(back_populates='curso',cascade='all, delete-orphan')
 
-Base.metadata.create_all(bind=engine)
+    @staticmethod
+    def seed_database(session):
+    # Verifica se já existem dados para não duplicar
+        if not session.query(Cursos).first():
+            cursos = [
+                Cursos(nome="Informática"),
+                Cursos(nome="Eletrotécnica"),
+                Cursos(nome="Têxtil"),
+                Cursos(nome="Vestuário")
+            ]
+            session.add_all(cursos)
+            session.commit()
+            print("Tabela de cursos populada com sucesso!")
+
+

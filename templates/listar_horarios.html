@@ -31,7 +31,7 @@
                         {% if current_user.id_usuario == horario.id_professor %}
                             <form action="{{ url_for('horario.excluir_ca') }}" method="POST">
                                 <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
-                                <input type="submit" value="Excluir" class="teste" >
+                                <input type="submit" value="Excluir" class="botao-excluir">
                             </form>
                         {% endif %}
                         <a href="{{ url_for('horario.listar_participantes', horario_id=horario.id_horario) }}" class="botao-participantes">Participantes</a>
@@ -41,7 +41,7 @@
                         {% else %}
                             <form class="btn btn-participar-aluno" action="{{ url_for('horario.participar_ca') }}" method="POST">
                                 <input type="hidden" name="horario_id" value="{{ horario.id_horario }}">
-                                <input type="submit" value="Participar">
+                                <input type="submit" value="Participar" class="botao-participar">
                             </form>
                         {% endif %}
                         <a href="{{ url_for('horario.listar_participantes', horario_id=horario.id_horario) }}" class="botao-participantes">Participantes</a>
@@ -50,7 +50,7 @@
             </tr>
         {% else %}
             <tr>
-                <td>Nenhum horário cadastrado.</td>
+                <td colspan="6">Nenhum horário cadastrado.</td>
             </tr>
         {% endfor %}
     </table>
